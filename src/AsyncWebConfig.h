@@ -44,8 +44,9 @@ The library works with ESP8266 and ESP32
 #define INPUTFLOAT 10
 #define INPUTTEXTAREA 11
 #define INPUTMULTICHECK 12
+#define CATEGORY 13
 //number of types
-#define INPUTTYPES 13
+#define INPUTTYPES 14
 
 #define BTN_CONFIG 0
 #define BTN_DONE 1
@@ -153,5 +154,3 @@ private:
   void (*_onCancel)() = NULL;
   void (*_onDelete)(String name) = NULL;
 };
-
-#endif
