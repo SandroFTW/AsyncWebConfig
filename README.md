@@ -1,3 +1,7 @@
+Forked for better use in SandroFTW/QShift32
+Adjusted max number of configuration entries to 30.
+Changed some cosmetic stuff.
+
 # AsyncWebConfig
 
 This Arduino Library works with ESP8266 and ESP32
