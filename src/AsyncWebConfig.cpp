@@ -26,6 +26,7 @@ Dark Grey: #393E46 (Background)
 Turquoise: #00ADB5 (<hr> seperator lines, small features)
 Grey/white: #EEEEEE (Text)
 */
+
 #include <AsyncWebConfig.h>
 #include <Arduino.h>
 #include <FS.h>
@@ -330,7 +331,7 @@ void addMultiOption(char * buf, String name, uint8_t option, String label, Strin
     sprintf(_buf,HTML_START,_apName.c_str());
     response->print(_buf);
     if (_buttons == BTN_CONFIG) {
-      createSimple(_buf,"apName","Name des Accesspoints","text",_apName);
+      createSimple(_buf,"apName","WiFi AP Name","text",_apName);
       response->print(_buf);
     }
 
