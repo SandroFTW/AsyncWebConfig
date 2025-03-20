@@ -1,11 +1,16 @@
 ## Changes in this Fork
 Forked for better use in SandroFTW/QShift32
+
 Adjusted max number of configuration entries to 30.
 
 ## Upcoming changes
 Modernized cosmetics
+
 Reset button change
+
 make more lightweight (remove some unnecessary options)
+
+Add category seperators
 
 
 # AsyncWebConfig
