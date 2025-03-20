@@ -69,21 +69,44 @@ const char HTML_START[] PROGMEM =
 "  text-align: center;\n"
 "  accent-color: #00ADB5\n"
 "}\n"
+// "input, select, textarea {\n"         // Crashes because of this block
+// "  width: 90%%\n"
+// "  padding: 8px\n"
+// "  margin: 5px 0\n"
+// "  border: 2px solid #00ADB5\n"
+// "  border-radius: 4px\n"
+// "  background-color: #222831\n"
+// "  color: #EEEEEE\n"
+// "  font-size: 14px\n"
+// "}\n"
+// ".checkbox-container {\n"
+// "  display: flex\n"
+// "  justify-content: space-between\n"
+// "  align-items: center\n"
+// "  width: 90%%\n"
+// "  margin: auto\n"
+// "}\n"
+// ".checkbox-container input {\n"
+// "  width: auto\n"
+// "}\n"
 "button {\n"
-"  font-size:16pt;\n"
-"  color: #222831\n"
-"  width:150px;\n"
-"  border-radius:4px;\n"
-"  margin:10px;\n"
-"}\n"
-"textarea {\n"
-"  border: 2px solid #00ADB5\n"
-"  border-radius: 4px\n"
+"  font-size: 14pt\n"
 "  color: #EEEEEE\n"
-"  background-color: #222831\n"
+"  background-color: #00ADB5\n"
+"  width: 150px\n"
+"  border-radius: 4px\n"
+"  border: none\n"
+"  padding: 10px\n"
+"  margin: 10px\n"
+"  cursor: pointer\n"
+"}\n"
+"button:hover {\n"
+"  background-color: #008a92\n"
 "}\n"
 "hr {\n"
 "  border:2px solid #00ADB5\n"
+"  margin-top: 2px;\n"
+"  margin-bottom: 2px;\n"
 "}\n"
 "</style>\n"
 "</head>\n"
@@ -126,6 +149,9 @@ const char HTML_ENTRY_MULTI_OPTION[] PROGMEM =
 "  <input type='checkbox' name='%s', value='%i' %s>%s<br>\n";
 const char HTML_ENTRY_MULTI_END[] PROGMEM =
 " </fieldset></div>\n";
+const char HTML_ENTRY_CATEGORY[] PROGMEM =
+" <div class='zeile'><b>\n%s</b></div>\n"
+" <div class='zeile'><hr></div>\n";
 
 //Template for save button and end of the form with save
 const char HTML_END[] PROGMEM =
@@ -270,6 +296,10 @@ void addMultiOption(char * buf, String name, uint8_t option, String label, Strin
   }
 }
 
+void addCategory(char * buf, String name) {
+  sprintf(buf,HTML_ENTRY_CATEGORY,name.c_str());
+}
+
 //***********Different type for ESP32 WebServer and ESP8266WebServer ********
 //both classes have the same functions
   //function to respond a HTTP request for the form use the default file
@@ -339,6 +369,8 @@ void addMultiOption(char * buf, String name, uint8_t option, String label, Strin
       switch (_description[i].type) {
         case INPUTFLOAT:
         case INPUTTEXT: createSimple(_buf,_description[i].name,_description[i].label,"text",values[i]);
+          break;
+        case CATEGORY: addCategory(_buf,_description[i].name);
           break;
         case INPUTTEXTAREA: createTextarea(_buf,_description[i],values[i]);
             break;
