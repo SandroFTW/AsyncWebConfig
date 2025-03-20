@@ -1,4 +1,6 @@
 /*
+Forked by SandroFTW
+Version 1.0
 
 File AsyncWebConfig.cpp
 Version 1.0.2
@@ -16,14 +18,24 @@ Dependencies:
   ArduinoJson.h
 
 */
+
+/*
+COLOR PALETTE:
+Almost Black: #222831 (Input fields backfround)
+Dark Grey: #393E46 (Background)
+Turquoise: #00ADB5 (<hr> seperator lines, small features)
+Grey/white: #EEEEEE (Text)
+*/
 #include <AsyncWebConfig.h>
 #include <Arduino.h>
+#include <FS.h>
+
 #if defined(ESP32)
   #include "SPIFFS.h"
 #endif
+
 #include <ESPAsyncWebServer.h>
 #include <ArduinoJson.h>
-#include <FS.h>
 
 const char * inputtypes[] = {"text","password","number","date","time","range","check","radio","select","color","float"};
 
@@ -35,37 +47,49 @@ const char HTML_START[] PROGMEM =
 "<head>\n"
 "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>\n"
 "<meta name='viewport' content='width=320' />\n"
-"<title>Konfiguration</title>\n"
+"<title>QShift32 Config</title>\n"
 "<style>\n"
 "body {\n"
-"  background-color: #d2f3eb;\n"
+"  background-color: #393E46;\n"
 "  font-family: Arial, Helvetica, Sans-Serif;\n"
-"  Color: #000000;\n"
+"  Color: #EEEEEE;\n"
 "  font-size:12pt;\n"
 "  width:320px;\n"
 "}\n"
 ".titel {\n"
-"font-weight:bold;\n"
-"text-align:center;\n"
-"width:100%%;\n"
-"padding:5px;\n"
+"  font-weight:bold;\n"
+"  text-align:center;\n"
+"  width:100%%;\n"
+"  padding:5px;\n"
 "}\n"
 ".zeile {\n"
 "  width:100%%;\n"
 "  padding:5px;\n"
 "  text-align: center;\n"
+"  accent-color: #00ADB5\n"
 "}\n"
 "button {\n"
-"font-size:14pt;\n"
-"width:150px;\n"
-"border-radius:10px;\n"
-"margin:5px;\n"
+"  font-size:16pt;\n"
+"  color: #222831\n"
+"  width:150px;\n"
+"  border-radius:4px;\n"
+"  margin:10px;\n"
+"}\n"
+"textarea {\n"
+"  border: 2px solid #00ADB5\n"
+"  border-radius: 4px\n"
+"  color: #EEEEEE\n"
+"  background-color: #222831\n"
+"}\n"
+"hr {\n"
+"  border:2px solid #00ADB5\n"
 "}\n"
 "</style>\n"
 "</head>\n"
 "<body>\n"
 "<div id='main_div' style='margin-left:15px;margin-right:15px;'>\n"
-"<div class='titel'>Konfiguration %s</div>\n"
+"<div class='titel'>%s</div>\n"
+"<hr>\n"
 "<form method='post'>\n";
 
 //Template for one input field
@@ -82,7 +106,7 @@ const char HTML_ENTRY_RANGE[] PROGMEM =
 "  <div class='zeile'><b>%s</b></div>\n"
 "  <div class='zeile'>%i&nbsp;<input type='range' min='%i' max='%i' value='%s' name='%s'>&nbsp;%i</div>\n";
 const char HTML_ENTRY_CHECKBOX[] PROGMEM =
-"  <div class='zeile'><b>%s</b><input type='checkbox' %s name='%s'></div>\n";
+"  <div class='zeile'><b>%s </b><input type='checkbox' %s name='%s'></div>\n";
 const char HTML_ENTRY_RADIO_TITLE[] PROGMEM =
 " <div class='zeile'><b>%s</b></div>\n";
 const char HTML_ENTRY_RADIO[] =
