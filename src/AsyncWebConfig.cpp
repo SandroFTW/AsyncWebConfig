@@ -89,24 +89,24 @@ const char HTML_START[] PROGMEM =
 // ".checkbox-container input {\n"
 // "  width: auto\n"
 // "}\n"
-"button {\n"
-"  font-size: 14pt\n"
-"  color: #EEEEEE\n"
-"  background-color: #00ADB5\n"
-"  width: 150px\n"
-"  border-radius: 4px\n"
-"  border: none\n"
-"  padding: 10px\n"
-"  margin: 10px\n"
-"  cursor: pointer\n"
-"}\n"
-"button:hover {\n"
-"  background-color: #008a92\n"
-"}\n"
+// "button {\n"
+// "  font-size: 14pt\n"
+// "  color: #EEEEEE\n"
+// "  background-color: #00ADB5\n"
+// "  width: 150px\n"
+// "  border-radius: 4px\n"
+// "  border: none\n"
+// "  padding: 10px\n"
+// "  margin: 10px\n"
+// "  cursor: pointer\n"
+// "}\n"
+// "button:hover {\n"
+// "  background-color: #008a92\n"
+// "}\n"
 "hr {\n"
 "  border:2px solid #00ADB5\n"
-"  margin-top: 2px;\n"
-"  margin-bottom: 2px;\n"
+// "  margin-top: 2px;\n"
+// "  margin-bottom: 2px;\n"
 "}\n"
 "</style>\n"
 "</head>\n"
@@ -130,7 +130,7 @@ const char HTML_ENTRY_RANGE[] PROGMEM =
 "  <div class='zeile'><b>%s</b></div>\n"
 "  <div class='zeile'>%i&nbsp;<input type='range' min='%i' max='%i' value='%s' name='%s'>&nbsp;%i</div>\n";
 const char HTML_ENTRY_CHECKBOX[] PROGMEM =
-"  <div class='zeile'><b>%s </b><input type='checkbox' %s name='%s'></div>\n";
+"  <div class='zeile'><b>%s</b><br><input type='checkbox' %s name='%s'></div>\n";
 const char HTML_ENTRY_RADIO_TITLE[] PROGMEM =
 " <div class='zeile'><b>%s</b></div>\n";
 const char HTML_ENTRY_RADIO[] =
@@ -150,7 +150,7 @@ const char HTML_ENTRY_MULTI_OPTION[] PROGMEM =
 const char HTML_ENTRY_MULTI_END[] PROGMEM =
 " </fieldset></div>\n";
 const char HTML_ENTRY_CATEGORY[] PROGMEM =
-" <div class='zeile'><b>\n%s</b></div>\n"
+" <div class='zeile'><br><br><b>%s</b></div>\n"
 " <div class='zeile'><hr></div>\n";
 
 //Template for save button and end of the form with save
@@ -370,7 +370,7 @@ void addCategory(char * buf, String name) {
         case INPUTFLOAT:
         case INPUTTEXT: createSimple(_buf,_description[i].name,_description[i].label,"text",values[i]);
           break;
-        case CATEGORY: addCategory(_buf,_description[i].name);
+        case CATEGORY: addCategory(_buf,_description[i].label);
           break;
         case INPUTTEXTAREA: createTextarea(_buf,_description[i],values[i]);
             break;

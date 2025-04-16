@@ -19,7 +19,7 @@ The library works with ESP8266 and ESP32
 #include <Arduino.h>
 
 //maximum number of parameters
-#define MAXVALUES 30
+#define MAXVALUES 40
 
 //maximum number of options per parameters
 #define MAXOPTIONS 15
